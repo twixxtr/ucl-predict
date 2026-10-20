@@ -1,0 +1,550 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #f8fbff;
+  background: #030914;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #030914;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Background image with ~20% blur, strictly non-interfering */
+.site-bg-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.site-bg-image {
+  position: absolute;
+  inset: -30px;
+  background-image: url('/bazer-gaana.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(8px);
+  transform: scale(1.06);
+  opacity: 0.85;
+}
+
+.site-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(3, 9, 20, 0.4) 0%, rgba(3, 9, 20, 0.78) 100%);
+}
+
+/* Main tab container - floating safely above background */
+.page {
+  position: relative;
+  z-index: 1;
+  width: min(680px, 100% - 28px);
+  margin: 14px auto 28px;
+  padding: 28px 28px 24px;
+  background: rgba(6, 19, 35, 0.95);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 34px;
+  min-height: calc(100vh - 28px);
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 0, 0, 0.5);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.wordmark {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #fff;
+  font-size: clamp(25px, 4.5vw, 39px);
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  cursor: pointer;
+}
+
+.round-badge {
+  background: #082d4e;
+  color: #199eff;
+  border-radius: 22px;
+  padding: 9px 15px;
+  font-size: clamp(12px, 2.5vw, 18px);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.stadium-wrap {
+  height: clamp(170px, 48vw, 330px);
+  border-radius: 24px;
+  overflow: hidden;
+  background: #0c1d31;
+}
+
+.stadium {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.competition {
+  text-align: center;
+  color: #9fb5d0;
+  font-size: clamp(12px, 2.9vw, 24px);
+  font-weight: 800;
+  margin: 32px 0 30px;
+}
+
+.matchup {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+}
+
+.team {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.crest {
+  width: clamp(72px, 19vw, 138px);
+  height: clamp(72px, 19vw, 138px);
+  object-fit: contain;
+  background: #fff;
+  border-radius: 23px;
+  padding: 5px;
+}
+
+.team h2 {
+  font-size: clamp(19px, 4vw, 30px);
+  margin: 17px 0 25px;
+  font-weight: 900;
+}
+
+.side-label {
+  color: #9fb5d0;
+  font-size: clamp(13px, 2.8vw, 21px);
+  font-weight: 800;
+}
+
+.versus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 4px;
+}
+
+.versus strong {
+  font-size: clamp(30px, 6vw, 43px);
+  font-weight: 900;
+}
+
+.versus span {
+  color: #9fb5d0;
+  font-size: clamp(12px, 2.8vw, 21px);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.separator {
+  height: 2px;
+  background: #1a2c40;
+  margin: 48px 0 46px;
+}
+
+.prediction h1 {
+  font-size: clamp(25px, 4.7vw, 40px);
+  line-height: 1.15;
+  letter-spacing: -1px;
+  margin: 0 0 40px;
+  font-weight: 900;
+}
+
+.score-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.score-control {
+  text-align: center;
+  min-width: 0;
+}
+
+.score-control h2 {
+  font-size: clamp(15px, 3.4vw, 27px);
+  color: #bcd0e5;
+  margin: 0 0 22px;
+  white-space: nowrap;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 3vw, 22px);
+}
+
+.stepper button {
+  height: clamp(47px, 10vw, 72px);
+  width: clamp(47px, 10vw, 72px);
+  border-radius: 50%;
+  border: 2px solid #344456;
+  background: transparent;
+  color: #b8c5d5;
+  font-size: clamp(24px, 4.8vw, 34px);
+  font-weight: 600;
+  display: grid;
+  place-items: center;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.stepper button:hover {
+  background: #10243b;
+  border-color: #7187a1;
+}
+
+.stepper output {
+  min-width: 20px;
+  font-size: clamp(31px, 6.5vw, 50px);
+  font-weight: 800;
+}
+
+.submit {
+  display: block;
+  width: 100%;
+  margin-top: 29px;
+  border: 0;
+  border-radius: 50px;
+  background: #f5f5f6;
+  color: #070b11;
+  padding: 18px 20px;
+  font-size: clamp(15px, 3.2vw, 23px);
+  font-weight: 800;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.submit:hover {
+  background: #dceaff;
+}
+
+.submit:disabled {
+  opacity: .65;
+  cursor: wait;
+}
+
+.confirmation {
+  margin-top: 29px;
+  background: #0c2b3e;
+  border-radius: 22px;
+  padding: 23px 22px;
+  color: #c0d4e9;
+  line-height: 1.5;
+}
+
+.confirmation strong {
+  display: block;
+  font-size: clamp(18px, 3.8vw, 29px);
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.confirmation p {
+  font-size: clamp(14px, 3vw, 22px);
+  font-weight: 700;
+  margin: 8px 0 0;
+}
+
+.notice {
+  margin-top: 16px;
+  padding: 13px 15px;
+  border: 1px solid #35516a;
+  border-radius: 12px;
+  background: #0b2033;
+  color: #c9d9eb;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.footer-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 23px 0 0;
+}
+
+.text-action {
+  background: none;
+  border: 0;
+  padding: 4px 0;
+  color: #9eb8d5;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.text-action:hover {
+  color: #fff;
+}
+
+footer {
+  text-align: center;
+  color: #9fb5d0;
+  font-size: clamp(12px, 2.8vw, 20px);
+  font-weight: 700;
+  line-height: 1.5;
+  margin-top: 30px;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: #000b;
+  backdrop-filter: blur(7px);
+}
+
+.modal {
+  position: relative;
+  width: min(420px, 100%);
+  max-height: 90vh;
+  overflow: auto;
+  background: #091a2c;
+  border: 1px solid #243c55;
+  border-radius: 22px;
+  padding: 27px;
+  color: #fff;
+  box-shadow: 0 20px 80px #0009;
+}
+
+.modal h2 {
+  font-size: 25px;
+  margin: 0 30px 8px 0;
+}
+
+.modal p {
+  font-size: 13px;
+  color: #a8bdd2;
+  line-height: 1.5;
+}
+
+.close {
+  position: absolute;
+  right: 15px;
+  top: 12px;
+  border: 0;
+  background: none;
+  color: #b8cce0;
+  font-size: 31px;
+  cursor: pointer;
+}
+
+.modal form {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.modal label {
+  display: grid;
+  gap: 7px;
+  font-size: 12px;
+  color: #c3d3e5;
+  font-weight: 700;
+}
+
+.modal input,
+.modal select,
+.identity-form-wrap input,
+.identity-form-wrap select {
+  width: 100%;
+  border: 1px solid #344b63;
+  border-radius: 9px;
+  background: #04101f;
+  color: #fff;
+  padding: 12px;
+  font-size: 15px;
+  outline: none;
+  font-family: inherit;
+}
+
+.modal select option,
+.identity-form-wrap select option {
+  background: #04101f;
+  color: #fff;
+}
+
+.modal input:focus,
+.modal select:focus,
+.identity-form-wrap input:focus,
+.identity-form-wrap select:focus {
+  border-color: #299eff;
+}
+
+.identity-form-wrap {
+  margin-top: 10px;
+}
+
+.identity-title {
+  font-size: clamp(24px, 4.5vw, 36px);
+  font-weight: 900;
+  letter-spacing: -1px;
+  margin: 0 0 8px;
+}
+
+.identity-subtitle {
+  color: #9fb5d0;
+  font-size: 14px;
+  margin: 0 0 24px;
+  line-height: 1.5;
+}
+
+.identity-form-wrap form {
+  display: grid;
+  gap: 16px;
+}
+
+.identity-form-wrap label {
+  display: grid;
+  gap: 8px;
+  font-size: 13px;
+  color: #c3d3e5;
+  font-weight: 700;
+}
+
+.student-badge {
+  display: block;
+  color: #8bb2d9;
+  font-size: 12px;
+  margin-top: 2px;
+  font-weight: 600;
+}
+
+.modal .submit {
+  margin-top: 5px;
+  padding: 14px;
+  font-size: 15px;
+}
+
+.leaderboard-modal {
+  width: min(480px, 100%);
+}
+
+.rank-list {
+  padding-left: 20px;
+  margin: 18px 0 0;
+}
+
+.rank-list li {
+  padding: 12px 0;
+  border-bottom: 1px solid #21364b;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 12px;
+  align-items: center;
+}
+
+.rank-list li span {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.rank-list li b {
+  color: #86caff;
+  font-size: 15px;
+}
+
+.rank-list li small {
+  grid-column: 1/-1;
+  color: #9eb5cd;
+}
+
+@media (max-width: 420px) {
+  .page {
+    width: 100%;
+    margin: 0;
+    padding: 22px 18px 23px;
+    border-radius: 0;
+    min-height: 100vh;
+  }
+  .header {
+    margin-bottom: 23px;
+  }
+  .competition {
+    margin: 25px 0 24px;
+    letter-spacing: -.2px;
+  }
+  .crest {
+    border-radius: 17px;
+  }
+  .team h2 {
+    margin: 13px 0 19px;
+  }
+  .versus {
+    gap: 15px;
+  }
+  .separator {
+    margin: 35px 0 34px;
+  }
+  .prediction h1 {
+    margin-bottom: 30px;
+  }
+  .score-grid {
+    gap: 6px;
+  }
+  .score-control h2 {
+    white-space: normal;
+    min-height: 35px;
+    margin-bottom: 14px;
+  }
+  .stepper {
+    gap: 9px;
+  }
+  .stepper button {
+    width: 43px;
+    height: 43px;
+  }
+  .stepper output {
+    font-size: 32px;
+  }
+  .submit {
+    margin-top: 24px;
+    padding: 16px;
+  }
+  .confirmation {
+    padding: 18px;
+  }
+  .footer-actions {
+    font-size: 12px;
+  }
+}
